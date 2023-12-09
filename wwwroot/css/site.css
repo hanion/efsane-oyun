@@ -1,0 +1,130 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #141414;
+}
+
+
+
+:root {
+    --primary-bg-color: #141414;
+    --primary-text-color: #ffffff;
+    --secondary-bg-color: #222222;
+    --link-color: #3498db;
+    --description-text-color: #808080;
+}
+
+body {
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+}
+
+p, th, td {
+    color: var(--primary-text-color);
+}
+
+
+.games-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.game-item {
+    display: contents;
+    padding: 20px;
+    text-align: center;
+}
+
+.game-name {
+    color: var(--primary-text-color);
+    text-decoration: none !important;
+    padding-top: 10px;
+}
+
+.game-description {
+    text-align: center;
+}
+
+.game-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 1rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+    .game-image:hover {
+        transform: scale(1.08);
+    }
+
+.game-item h3 {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
+
+.game-item p {
+    color: var(--description-text-color);
+}
+
+
+
+.game-page {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.game-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.game-description {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.game-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+    .game-preview img {
+        max-width: 100%;
+        width: 60%;
+        margin-top: 20px;
+    }
+
+.game-ratings {
+    margin-top: 20px;
+}
+
+.game-comments {
+    margin-top: 20px;
+}
