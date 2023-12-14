@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = @ViewBag.Title;
+}
+
+
+<div class="game-page">
+
+    <div class="game-preview">
+        @if (ViewBag.EmbedValid) {
+            <iframe frameborder="0" 
+                src="@ViewBag.EmbedSource" 
+                width="1024" height="620">
+            </iframe>
+        } else {
+            <img src="~/Assets/Games/@ViewBag.Id/@ViewBag.CoverImage" alt="@ViewBag.Title">
+        }
+    </div>
+
+    <div class="game-description">@Html.Raw(ViewBag.Description)</div>
+
+
+
+    <hr class="game-page-separator" />
+
+    <div class="tags">
+        <h2>Tags</h2>
+        @foreach (var tags in ViewBag.Tags)
+        {
+            <a href="@Url.Action("Index", "Home", new { Tag = tags.Id })" class="btn btn-info">@tags.Tag</a>
+        }
+    </div>
+
+
+
+     <hr class="game-page-separator" />
+
+
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="add-rating-section">
+            <h2>Rating</h2>
+            @if (ViewBag.AverageRating != 0) {
+                <p>Average Rating:</p>
+                <input class="range" type="range" min="0" max="100" value="@Convert.ToInt32(ViewBag.AverageRating)" disabled />
+            }
+
+
+            <form method="post" action="@Url.Action("RateGame", "Game")">
+                <input type="hidden" name="game_id" value="@ViewBag.Id" />
+                <p>Your Rating:</p>
+                <input class="range" type="range" name="user_rating" min="0" max="100" value="@ViewBag.UserRating"
+                       onChange="rangeSlide(this.value)" 
+                       onmousemove="rangeSlide(this.value)" />
+                @*
+                <span id="rangeValue">100</span>
+                *@
+                
+                <button class="add-comment-button" type="submit">Submit Rating</button>
+            </form>
+        </div>
+    }
+    else
+    {
+        <div class="add-rating-section">
+            <a href="/Identity/Account/Login">Login to Rate</a>
+        </div>
+    }
+
+
+
+
+    <hr class="game-page-separator" />
+
+
+
+
+    <div class="comments-section">
+        <h2>Comments</h2>
+
+        @foreach (var comment in ViewBag.UserComments)
+        {
+            <div class="comment-box">
+                <div class="comment">
+                    <strong>@comment.UserName</strong>
+                    <p style="margin-left: 1rem">@comment.Comment.Content</p>
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+
+    <hr class="game-page-separator" />
+    
+
+
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="add-comment-section">
+            <h3>Add Comment</h3>
+            <form method="post" action="@Url.Action("AddComment", "Game")">
+                <input type="hidden" name="game_id" value="@ViewBag.Id" />
+                <textarea class="add-comment-text" name="content" rows="3"></textarea>
+                <button class="add-comment-button" type="submit">Submit</button>
+            </form>
+        </div>
+    }
+    else
+    {
+        <div class="add-comment-section">
+            <a href="/Identity/Account/Login">Login to Add Comment</a>
+        </div>
+    }
+
+</div>
+
+
+<script type="text/javascript">
+    function rangeSlide(value) {
+        document.getElementById('rangeValue').innerHTML = value;
+    }
+</script>

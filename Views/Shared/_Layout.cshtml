@@ -1,12 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - efsane_oyun</title>
+    <title>@ViewData["Title"] - Efsane Oyun</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/efsane_oyun.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -20,14 +21,32 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" href="@Url.Action("Index", new { Sort = "Popular" , Tag = ViewBag.TagFilter })">Popular Games</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" href="@Url.Action("Index", new { Sort = "HighestRated" , Tag = ViewBag.TagFilter })">Highest Rated Games</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="~/Identity/Account/Manage">Account</a>
-                        </li>
+
+                        @if (SignInManager.IsSignedIn(User)) {
+                            @if (User.IsInRole("Moderator")) {
+                                <li style="margin-right: 30px;" />
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Games" asp-action="Index">Games</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Tags" asp-action="Index">Tags</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="GameTags" asp-action="Index">GameTags</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Comments" asp-action="Index">Comments</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Ratings" asp-action="Index">Ratings</a>
+                                </li>
+                            }
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

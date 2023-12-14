@@ -1,14 +1,28 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<efsane_oyun.Models.Games>
+
+@{
+    ViewData["Title"] = "Ana Sayfa";
 }
 
 
 <main>
     <section>
-        <h2>@ViewBag.Message</h2>
-        <h2 style="padding:60px;">Efsane Oyun</h2>
+        <h2 style="padding:80px; text-align: center;">Efsane Oyun</h2>
+        
         <div class="games-list">
-           
+            @foreach (var game in Model)
+            {
+                <div class="game-item">
+                    <div class="game-item-content">
+                        <a href="@Url.Action("", "Game", new { i = @game.Id })">
+                            <img src="~/Assets/Games/@game.Id/@game.CoverImage" class="game-image" alt="@game.Title">
+                            <h5 class="game-name" sytyle:"text-decoration:none;">@game.Title</h5>
+                        </a>
+                        <p class="game-tagline">@game.TagLine</p>
+                    </div>
+                </div>
+            }
         </div>
     </section>
 </main>
+
